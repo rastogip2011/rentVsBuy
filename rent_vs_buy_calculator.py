@@ -57,6 +57,7 @@ class ScenarioInput:
     mortgage_term_years: int = 30  # Duration of the mortgage in years
     property_tax_rate: float = 0.0094  # Annual property tax as a fraction of price
     home_insurance_rate: float = 0.0033  # Annual home insurance as a fraction of price
+    hoa_monthly: float = 0.0  # Monthly HOA fee in dollars
 
     # Investment parameters
     investment_return_rate: float = 0.10  # Annual return on invested cash
@@ -209,7 +210,7 @@ def rent_vs_buy(scenario: ScenarioInput) -> Tuple[float, float]:
     renting_costs = []
 
     for month in range(horizon_months):
-        owning_cost = monthly_mortgage_payment + monthly_prop_tax + monthly_home_ins
+        owning_cost = monthly_mortgage_payment + monthly_prop_tax + monthly_home_ins + scenario.hoa_monthly
         rent_cost = monthly_rent[month] + scenario.renters_insurance
         owning_costs.append(owning_cost)
         renting_costs.append(rent_cost)
